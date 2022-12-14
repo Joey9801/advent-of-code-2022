@@ -80,27 +80,6 @@ where
     }
 }
 
-fn make_day<ParsedInput, P1Input, P1Result, P2Input, P2Result>(
-    name: DayName,
-    parse: impl Fn(&str) -> ParsedInput + 'static,
-    part_1: impl Fn(&P1Input) -> P1Result + 'static,
-    part_2: impl Fn(&P2Input) -> P2Result + 'static,
-) -> Box<dyn ErasedDay>
-where
-    ParsedInput: AsRef<P1Input> + AsRef<P2Input> + 'static,
-    P1Input: ?Sized + 'static,
-    P1Result: std::fmt::Display + 'static,
-    P2Input: ?Sized + 'static,
-    P2Result: std::fmt::Display + 'static,
-{
-    Box::new(Day {
-        name,
-        parse: Box::new(parse),
-        part_1: Box::new(part_1),
-        part_2: Box::new(part_2),
-    })
-}
-
 macro_rules! define_days {
     (($($name:literal, $day_num:literal, $mod:ident),*)) => {
         $(
@@ -109,12 +88,12 @@ macro_rules! define_days {
 
         pub fn all_days() -> Vec<Box<dyn ErasedDay>> {
             vec![$(
-                make_day(
-                    DayName { name: $name, day: $day_num },
-                    $mod::parse,
-                    $mod::solve_part_1,
-                    $mod::solve_part_2,
-                )
+                Box::new(Day {
+                    name: DayName { name: $name, day: $day_num },
+                    parse: Box::new($mod::parse),
+                    part_1: Box::new($mod::solve_part_1),
+                    part_2: Box::new($mod::solve_part_2),
+                })
             ),*]
         }
     }
