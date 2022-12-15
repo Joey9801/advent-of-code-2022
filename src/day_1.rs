@@ -73,7 +73,6 @@
 /// in total?
 
 
-
 pub fn parse(input: &str) -> Vec<Vec<u32>> {
     let mut output = Vec::new();
     let mut working = Vec::new();

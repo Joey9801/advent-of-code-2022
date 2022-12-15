@@ -100,7 +100,8 @@ macro_rules! define_days {
 }
 
 define_days! {
-    ("Calorie Counting", 1, day_1)
+    ("Calorie Counting", 1, day_1),
+    ("Rock Paper Scissors ", 2, day_2)
 }
 
 pub fn get_input(
@@ -110,6 +111,5 @@ pub fn get_input(
     let file_name = format!("input_{}.txt", day_name.day);
     let mut path = input_root.to_path_buf();
     path.push(file_name);
-    dbg!(&path);
     std::fs::read_to_string(path)
 }
