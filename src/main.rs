@@ -1,18 +1,19 @@
 use std::time::Duration;
 use std::path::PathBuf;
 
+use clap::Parser;
+
 use aoc_2022::{all_days, RunResult, get_input};
 
-// use structopt::StructOpt;
-// 
-// #[derive(Debug, StructOpt)]
-// #[structopt(name = "aoc", about = "Joey9801's advent-of-code solutions")]
+
+#[derive(Parser, Debug)]
+#[command(name = "aoc", about = "Joey9801's advent-of-code solutions")]
 struct Opt {
-//     /// Only run the given day
-//     #[structopt(name = "DAY", long = "day")]
+    /// Only run the given day
+    #[arg(name = "DAY", long = "day")]
     day: Option<u8>,
-//     
-//     #[structopt(name = "INPUT_ROOT", long = "input_root", default = ".")]
+    
+    #[arg(name = "INPUT_ROOT", long = "input_root", default_value = "./inputs")]
     input_root: PathBuf,
 }
 
@@ -103,12 +104,7 @@ fn print_results(results: &[RunResult]) {
 }
 
 fn main() {
-    //let opt = Opt::from_args();
-    let opt = Opt {
-        day: None,
-        input_root: PathBuf::from("./inputs/"),
-    };
-
+    let opt = Opt::parse();
     let mut solutions = all_days();
 
     if let Some(day) = &opt.day {
@@ -116,7 +112,7 @@ fn main() {
     }
 
     if solutions.len() == 0 {
-        // println!("No solutions match CLI opts: {:?}", &opt);
+        println!("No solutions match CLI opts: {:?}", &opt);
     } else {
         let results = solutions
             .iter()
