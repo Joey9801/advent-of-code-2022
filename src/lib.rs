@@ -81,7 +81,7 @@ where
 }
 
 macro_rules! define_days {
-    (($($name:literal, $day_num:literal, $mod:ident),*)) => {
+    ($(($name:literal, $day_num:literal, $mod:ident)),*) => {
         $(
             mod $mod;
         )*
@@ -99,11 +99,14 @@ macro_rules! define_days {
     }
 }
 
-define_days!{
-    ("Example day", 0, example_day)
+define_days! {
+    ("Calorie Counting", 1, day_1)
 }
 
-pub fn get_input(input_root: &std::path::Path, day_name: DayName) -> Result<String, std::io::Error> {
+pub fn get_input(
+    input_root: &std::path::Path,
+    day_name: DayName,
+) -> Result<String, std::io::Error> {
     let file_name = format!("input_{}.txt", day_name.day);
     let mut path = input_root.to_path_buf();
     path.push(file_name);
