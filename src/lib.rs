@@ -200,5 +200,6 @@ define_days! {
     ("Rock Paper Scissors ", 2, day_2),
     ("Rucksack Reorganization ", 3, day_3),
     ("Camp Cleanup", 4, day_4),
-    ("Supply Stacks", 5, day_5)
+    ("Supply Stacks", 5, day_5),
+    ("Tuning Trouble", 6, day_6)
 }
