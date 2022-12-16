@@ -83,11 +83,37 @@ where
 pub fn get_input(
     input_root: &std::path::Path,
     day_name: DayName,
-) -> Result<String, std::io::Error> {
+) -> anyhow::Result<String> {
     let file_name = format!("input_{}.txt", day_name.day);
     let mut path = input_root.to_path_buf();
     path.push(file_name);
-    std::fs::read_to_string(path)
+    
+    let input = if path.exists() {
+        std::fs::read_to_string(path)?
+    } else {
+        println!("Fetching input for day {}", day_name.day);
+
+        let url = format!("https://adventofcode.com/2022/day/{}/input", day_name.day);
+        let session_cookie = std::env::var("AOC_SESSION_COOKIE")
+            .expect("Input not cached, and AOC_SESSION_COOKIE not set");
+        
+        let jar = reqwest::cookie::Jar::default();
+        jar.add_cookie_str(&format!("session={session_cookie}"), &"https://adventofcode.com".parse().unwrap());
+        let client = reqwest::blocking::ClientBuilder::default()
+            .cookie_provider(std::sync::Arc::new(jar))
+            .build()?;
+
+        let input = client.get(url)
+            .send()?
+            .text()?;
+
+        std::fs::create_dir_all(path.parent().unwrap())?;
+        std::fs::write(path, &input)?;
+        
+        input
+    };
+    
+    Ok(input)
 }
 
 pub fn print_results_table(results: &[RunResult]) {
