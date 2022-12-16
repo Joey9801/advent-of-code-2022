@@ -102,7 +102,8 @@ macro_rules! define_days {
 define_days! {
     ("Calorie Counting", 1, day_1),
     ("Rock Paper Scissors ", 2, day_2),
-    ("Rucksack Reorganization ", 3, day_3)
+    ("Rucksack Reorganization ", 3, day_3),
+    ("Camp Cleanup", 4, day_4)
 }
 
 pub fn get_input(
