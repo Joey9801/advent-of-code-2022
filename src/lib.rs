@@ -1,5 +1,7 @@
 use std::time::{Duration, Instant};
 
+mod util;
+
 #[derive(Debug, Clone, Copy)]
 pub struct DayName {
     pub name: &'static str,
