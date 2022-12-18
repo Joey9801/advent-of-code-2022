@@ -227,5 +227,8 @@ define_days! {
     ("Rucksack Reorganization ", 3, day_3),
     ("Camp Cleanup", 4, day_4),
     ("Supply Stacks", 5, day_5),
-    ("Tuning Trouble", 6, day_6)
+    ("Tuning Trouble", 6, day_6),
+    ("No Space Left On Device", 7, day_7),
+    ("Treetop Tree House", 8, day_8),
+    ("Rope Bridge", 9, day_9)
 }
