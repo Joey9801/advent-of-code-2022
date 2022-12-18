@@ -229,5 +229,6 @@ define_days! {
     ("No Space Left On Device", 7, day_7),
     ("Treetop Tree House", 8, day_8),
     ("Rope Bridge", 9, day_9),
-    ("Cathode-Ray Tube", 10, day_10)
+    ("Cathode-Ray Tube", 10, day_10),
+    ("Monkey in the Middle", 11, day_11)
 }
