@@ -58,4 +58,19 @@ impl Dir {
             Dir::Right => Vec2 { x: 1, y: 0 },
         }
     }
+    
+    pub const ALL: [Self; 4] = [
+        Self::Up,
+        Self::Down,
+        Self::Left,
+        Self::Right,
+    ];
+}
+
+impl std::ops::Add<Dir> for Vec2 {
+    type Output = Vec2;
+
+    fn add(self, rhs: Dir) -> Self::Output {
+        self + rhs.to_vec2()
+    }
 }
