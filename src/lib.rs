@@ -80,14 +80,11 @@ where
     }
 }
 
-pub fn get_input(
-    input_root: &std::path::Path,
-    day_name: DayName,
-) -> anyhow::Result<String> {
+pub fn get_input(input_root: &std::path::Path, day_name: DayName) -> anyhow::Result<String> {
     let file_name = format!("input_{}.txt", day_name.day);
     let mut path = input_root.to_path_buf();
     path.push(file_name);
-    
+
     let input = if path.exists() {
         std::fs::read_to_string(path)?
     } else {
@@ -96,23 +93,24 @@ pub fn get_input(
         let url = format!("https://adventofcode.com/2022/day/{}/input", day_name.day);
         let session_cookie = std::env::var("AOC_SESSION_COOKIE")
             .expect("Input not cached, and AOC_SESSION_COOKIE not set");
-        
+
         let jar = reqwest::cookie::Jar::default();
-        jar.add_cookie_str(&format!("session={session_cookie}"), &"https://adventofcode.com".parse().unwrap());
+        jar.add_cookie_str(
+            &format!("session={session_cookie}"),
+            &"https://adventofcode.com".parse().unwrap(),
+        );
         let client = reqwest::blocking::ClientBuilder::default()
             .cookie_provider(std::sync::Arc::new(jar))
             .build()?;
 
-        let input = client.get(url)
-            .send()?
-            .text()?;
+        let input = client.get(url).send()?.text()?;
 
         std::fs::create_dir_all(path.parent().unwrap())?;
         std::fs::write(path, &input)?;
-        
+
         input
     };
-    
+
     Ok(input)
 }
 
@@ -230,5 +228,6 @@ define_days! {
     ("Tuning Trouble", 6, day_6),
     ("No Space Left On Device", 7, day_7),
     ("Treetop Tree House", 8, day_8),
-    ("Rope Bridge", 9, day_9)
+    ("Rope Bridge", 9, day_9),
+    ("Cathode-Ray Tube", 10, day_10)
 }
