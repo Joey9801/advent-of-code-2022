@@ -233,5 +233,6 @@ define_days! {
     ("Rope Bridge", 9, day_9),
     ("Cathode-Ray Tube", 10, day_10),
     ("Monkey in the Middle", 11, day_11),
-    ("Hill Climbing Algorithm", 12, day_12)
+    ("Hill Climbing Algorithm", 12, day_12),
+    ("Distress Signal", 13, day_13)
 }
